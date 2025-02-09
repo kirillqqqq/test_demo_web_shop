@@ -7,7 +7,7 @@ on:
       deployment_target:
         description: select tests to run
         required: true
-        type: chioce
+        type: choice
         default: all
         options:
           - all
