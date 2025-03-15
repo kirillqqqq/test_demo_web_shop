@@ -1,16 +1,9 @@
 import time
 
-from pages.main_page import MainPage
 from pages.register_page import RegistrationPage
 from pages.login_page import LoginPage
 from pages.books_page import BooksPage
 from pages.apparel_shoes_page import ApparelShoesPage
-
-
-def test_open_site(browser):
-    main_page = MainPage(browser)
-    main_page.open()
-    main_page.check_title('Demo Web Shop')
 
 
 def test_success_registration(browser, random_user_data):
