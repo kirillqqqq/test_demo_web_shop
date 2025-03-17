@@ -1,3 +1,4 @@
+import time
 from locators.items_page_locators import ItemsPageLocators as Locator
 
 
@@ -15,43 +16,31 @@ class ApparelShoesPage:
         assert 'Apparel & Shoes' in title.text, \
             f"Ожидаемый текст: Apparel & Shoes, полученный текст: {title}"
 
-    def display_per_page_4(self):
-        display_items = self.browser.find_element(*Locator.DISPLAY_PER_PAGE_4)
-        display_items.click()
-        displayed_items = self.browser.find_elements(*Locator.PRODUCT_ITEM)
-        assert len(displayed_items) == 4, (
-            f"Ожидаемое кол-во элементов: 4, "
-            f"полученное кол-во элементов: {len(displayed_items)}"
-        )
+    def display_per_page_with_check(self):
+        count_locator = {
+            4: Locator.DISPLAY_PER_PAGE_4,
+            8: Locator.DISPLAY_PER_PAGE_8,
+            12: Locator.DISPLAY_PER_PAGE_12
+        }
+        for count in [4, 8, 12]:
+            display_items = self.browser.find_element(*count_locator[count])
+            display_items.click()
+            displayed_items = self.browser.find_elements(*Locator.PRODUCT_ITEM)
+            assert len(displayed_items) == count, (
+                f"Ожидаемое кол-во элементов: {count}, "
+                f"полученное кол-во элементов: {len(displayed_items)}"
+            )
 
-    def display_per_page_8(self):
-        display_items = self.browser.find_element(*Locator.DISPLAY_PER_PAGE_8)
-        display_items.click()
-        displayed_items = self.browser.find_elements(*Locator.PRODUCT_ITEM)
-        assert len(displayed_items) == 8, (
-            f"Ожидаемое кол-во элементов: 8, "
-            f"полученное кол-во элементов: {len(displayed_items)}"
-        )
+    def view_as(self):
+        view_locator = {
+            "List": Locator.VIEW_AS_LIST,
+            "Grid": Locator.VIEW_AS_GRID
+        }
+        for view_option in ["List", "Grid"]:
+            view_as = self.browser.find_element(*view_locator[view_option])
+            view_as.click()
+            selected_view_as = self.browser.find_element(*Locator.SELECTED_VIEW_AS)
+            assert view_option in selected_view_as.text, \
+                f"Ожидаемый текст: {view_option}, полученный текст: {selected_view_as}"
 
-    def display_per_page_12(self):
-        display_items = self.browser.find_element(*Locator.DISPLAY_PER_PAGE_12)
-        display_items.click()
-        displayed_items = self.browser.find_elements(*Locator.PRODUCT_ITEM)
-        assert len(displayed_items) == 12, (
-            f"Ожидаемое кол-во элементов: 12, "
-            f"полученное кол-во элементов: {len(displayed_items)}"
-        )
 
-    def view_as_list(self):
-        view_as = self.browser.find_element(*Locator.VIEW_AS_LIST)
-        view_as.click()
-        selected_view_as = self.browser.find_element(*Locator.SELECTED_VIEW_AS)
-        assert 'List' in selected_view_as.text, \
-            f"Ожидаемый текст: List, полученный текст: {selected_view_as}"
-
-    def view_as_grid(self):
-        view_as = self.browser.find_element(*Locator.VIEW_AS_GRID)
-        view_as.click()
-        selected_view_as = self.browser.find_element(*Locator.SELECTED_VIEW_AS)
-        assert 'Grid' in selected_view_as.text, \
-            f"Ожидаемый текст: Grid, полученный текст: {selected_view_as}"
