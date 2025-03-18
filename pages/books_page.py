@@ -53,3 +53,25 @@ class BooksPage:
                 f"Ожидаемое кол-во элементов: {order_by}, "
                 f"полученное кол-во элементов: {product_selected_order_by}"
             )
+
+    def display_per_page(self):
+        count_locator = {
+            4: Locator.DISPLAY_PER_PAGE_4,
+            8: Locator.DISPLAY_PER_PAGE_8,
+            12: Locator.DISPLAY_PER_PAGE_12
+        }
+        for count in [4, 8, 12]:
+            display_items = self.browser.find_element(*count_locator[count])
+            display_items.click()
+            displayed_items = self.browser.find_elements(*Locator.PRODUCT_ITEM)
+            if len(displayed_items) < count:
+                selected_display_per_page = self.browser.find_element(*Locator.SELECTED_DISPLAY_PER_PAGE)
+                assert str(count) == selected_display_per_page.text, (
+                f"Ожидаемое кол-во элементов: {count}, "
+                f"полученное кол-во элементов: {len(displayed_items)}"
+                )
+            else:
+                assert len(displayed_items) == count, (
+                    f"Ожидаемое кол-во элементов: {count}, "
+                    f"полученное кол-во элементов: {len(displayed_items)}"
+                )

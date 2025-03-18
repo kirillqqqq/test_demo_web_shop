@@ -17,7 +17,7 @@ class ItemsPageLocators:
     DISPLAY_PER_PAGE_4 = (By.XPATH, '//option[text()="4"]')
     DISPLAY_PER_PAGE_8 = (By.XPATH, '//option[text()="8"]')
     DISPLAY_PER_PAGE_12 = (By.XPATH, '//option[text()="12"]')
-    SELECTED_DISPLAY_PER_PAGE = (By.XPATH, '//option[text()="12"]')
+    SELECTED_DISPLAY_PER_PAGE = (By.XPATH, '//*[@id="products-pagesize"]/*[@selected="selected"]')
     PRODUCT_ITEM = (By.XPATH, '//*[@class="product-item"]')
     VIEW_AS_GRID = (By.XPATH, '//option[text()="Grid"]')
     VIEW_AS_LIST = (By.XPATH, '//option[text()="List"]')

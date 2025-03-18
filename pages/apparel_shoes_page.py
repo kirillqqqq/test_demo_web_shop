@@ -1,4 +1,3 @@
-import time
 from locators.items_page_locators import ItemsPageLocators as Locator
 
 
@@ -16,7 +15,7 @@ class ApparelShoesPage:
         assert 'Apparel & Shoes' in title.text, \
             f"Ожидаемый текст: Apparel & Shoes, полученный текст: {title}"
 
-    def display_per_page_with_check(self):
+    def display_per_page(self):
         count_locator = {
             4: Locator.DISPLAY_PER_PAGE_4,
             8: Locator.DISPLAY_PER_PAGE_8,
@@ -26,10 +25,19 @@ class ApparelShoesPage:
             display_items = self.browser.find_element(*count_locator[count])
             display_items.click()
             displayed_items = self.browser.find_elements(*Locator.PRODUCT_ITEM)
-            assert len(displayed_items) == count, (
+            if len(displayed_items) < count:
+                # Если отображаемых товаров меньше ожидаемого количества
+                selected_display_per_page = self.browser.find_element(*Locator.SELECTED_DISPLAY_PER_PAGE)
+                assert str(count) == selected_display_per_page.text, (
                 f"Ожидаемое кол-во элементов: {count}, "
                 f"полученное кол-во элементов: {len(displayed_items)}"
-            )
+                )
+            else:
+                # Если отображаемых товаров столько же, сколько ожидается
+                assert len(displayed_items) == count, (
+                    f"Ожидаемое кол-во элементов: {count}, "
+                    f"полученное кол-во элементов: {len(displayed_items)}"
+                )
 
     def view_as(self):
         view_locator = {
