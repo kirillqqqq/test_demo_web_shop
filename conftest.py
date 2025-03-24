@@ -6,7 +6,7 @@ import random
 import string
 
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def browser():
     options = Options()
     # Добавляем опцию без заголовков options.add_argument('--headless')

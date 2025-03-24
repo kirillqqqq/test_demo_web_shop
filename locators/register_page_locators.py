@@ -19,3 +19,5 @@ class RegisterPageLocator:
     SUCCESS_REGISTRATION_STATUS = (By.XPATH, '//*[@class = "result"]')
     # статус неуспешной регистрации
     UN_SUCCESS_REGISTRATION_STATUS = (By.XPATH, '//*[@class="validation-summary-errors"]/descendant::li')
+
+    LOGOUT_LOGIN = (By.XPATH, '//*[@class="header-links"]/descendant::a[2]')

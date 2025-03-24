@@ -38,4 +38,10 @@ class RegistrationPage:
         assert 'Your registration completed' in registration_status.text, f"Ожидаемый текст: Your registration completed, полученный текст: {registration_status}"
 
 
+    def logout(self):
+        logout = self.browser.find_element(*Loсator.LOGOUT_LOGIN)
+        logout.click()
+        login = self.browser.find_element(*Loсator.LOGOUT_LOGIN)
+        assert "Log in" in login.text, \
+            f"Ожидаемый текст: Log in, полученный текст: {login.text}"
 
