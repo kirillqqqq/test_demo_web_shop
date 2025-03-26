@@ -4,15 +4,16 @@ from selenium.webdriver.chrome.options import Options
 from faker import Faker
 import random
 import string
+import allure
 
 
 @pytest.fixture(scope="session")
 def browser():
     options = Options()
-    # Добавляем опцию без заголовков options.add_argument('--headless')
-
-    # Запускаем браузер без заголовков options=options
-    browser = webdriver.Chrome()
+    # Добавляем опцию без заголовков
+    options.add_argument('--headless')
+    # Запускаем браузер без заголовков
+    browser = webdriver.Chrome(options=options)
     # Устанавливаем неявное ожидание в 10 секунд
     browser.implicitly_wait(10)
     # Открываем браузер на полный экран
@@ -32,9 +33,14 @@ def random_user_data():
     return first_name, last_name, email, password
 
 
-def pytest_collection_modifyitems(session, config, items):
-    file_order = {
-        "test_registration_page.py": 1,
-        "test_login_page.py": 2,
-    }
-    items.sort(key=lambda item: file_order.get(item.path.name, 999))
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:  # Если тест упал
+        driver = item.funcargs.get("browser")  # Получаем браузер из фикстуры
+        if driver:
+            allure.attach(driver.get_screenshot_as_png(),
+                          name="Failure Screenshot",
+                          attachment_type=allure.attachment_type.PNG)
