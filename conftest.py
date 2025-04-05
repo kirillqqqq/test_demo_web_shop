@@ -24,13 +24,18 @@ def browser():
 
 @pytest.fixture(scope="session")
 def random_user_data():
-    # Создаем генератор случайных данных
-    fake = Faker()
-    first_name = fake.first_name()
-    last_name = fake.last_name()
-    email = fake.email()
-    password = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
-    return first_name, last_name, email, password
+    fake = Faker("en_US")
+
+    return {
+        "first_name": fake.first_name(),
+        "last_name": fake.last_name(),
+        "email": fake.email(),
+        "password": ''.join(random.choices(string.ascii_letters + string.digits, k=12)),
+        "city": fake.city(),
+        "address": fake.address(),
+        "postcode": fake.postcode(),
+        "phone": fake.phone_number(),
+    }
 
 
 @pytest.hookimpl(hookwrapper=True)

@@ -6,7 +6,10 @@ from pages.register_page import RegistrationPage
 @allure.story("Успешная регистрация нового пользователя")
 @allure.title("Регистрация")
 def test_success_registration(browser, random_user_data):
-    first_name, last_name, email, password = random_user_data
+    first_name = random_user_data["first_name"]
+    last_name = random_user_data["last_name"]
+    email = random_user_data["email"]
+    password = random_user_data["password"]
     registration_page = RegistrationPage(browser)
     registration_page.open()
     registration_page.registration(first_name, last_name, email, password)

@@ -43,8 +43,8 @@ class RegistrationPage:
 
     def logout(self):
         with allure.step("Выходим из аккаунта"):
-            logout = self.browser.find_element(*Loсator.LOGOUT_LOGIN)
-            logout.click()
+            logout_login = self.browser.find_element(*Loсator.LOGOUT_LOGIN)
+            logout_login.click()
             login = self.browser.find_element(*Loсator.LOGOUT_LOGIN)
             assert "Log in" in login.text, \
                 f"Ожидаемый текст: Log in, полученный текст: {login.text}"
