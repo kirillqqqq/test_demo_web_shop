@@ -59,8 +59,10 @@ jobs:
       - name: Run tests with Allure
         run: pytest --alluredir allure-results -n 2 --reruns 1 --reruns-delay 5
 
+      - name: Store allure results
+
       - name: Generate allure report
-        run: ~\scoop\apps\allure\2.33.0\bin\allure.bat generate allure-results
+        run: ~\scoop\apps\allure\2.33.0\bin\allure.bat allure generate -c allure-results -o _site
         if: always()
         
       - name: Configure Git for GitHub
