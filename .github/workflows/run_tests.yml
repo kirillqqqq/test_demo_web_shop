@@ -50,7 +50,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install allure-pytest pytest-xdist pytest-rerunfailures
 
       - name: Run tests with Allure
         run: pytest --alluredir allure-results -n 2 --reruns 1 --reruns-delay 5
