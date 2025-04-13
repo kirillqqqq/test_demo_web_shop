@@ -20,6 +20,15 @@ jobs:
       - name: Copy source data
         uses: actions/checkout@v4
 
+      - name: Remove old allure report
+        run: |
+          if (Test-Path -Path "./allure-results") {
+            Remove-Item -Recurse -Force ./allure-results
+          }
+          if (Test-Path -Path "./allure-report") {
+            Remove-Item -Recurse -Force ./allure-report
+          }
+        
       - name: Set up Python env
         uses: actions/setup-python@v5
         with:
