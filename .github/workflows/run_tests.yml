@@ -71,11 +71,11 @@ jobs:
 
       - name: Push Allure report to gh-pages
         run: |
-          git fetch
-          git checkout gh-pages || git checkout -b gh-pages origin/gh-pages
-          Copy-Item -Recurse -Force allure-report/* .
+          git fetch origin gh-pages
+          git checkout gh-pages || git checkout --orphan gh-pages
+          git rm -rf . || echo "nothing to remove"
+          Copy-Item -Recurse -Force _site/* .
           git add .
-          git commit -m "Add new Allure report" || echo "No changes to commit"
-          git pull --rebase origin gh-pages
-          git push origin gh-pages
+          git commit -m "Update Allure report" || echo "No changes to commit"
+          git push origin gh-pages --force
         if: always()
