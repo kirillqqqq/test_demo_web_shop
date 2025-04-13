@@ -70,5 +70,6 @@ jobs:
           Copy-Item -Recurse -Force allure-report/* .
           git add .
           git commit -m "Add new Allure report"
+          git pull --rebase origin gh-pages
           git push origin gh-pages
         if: always()
