@@ -61,7 +61,8 @@ jobs:
         
       - name: Push Allure report to gh-pages
         run: |
-          git checkout gh-pages
+          git fetch
+          git checkout -b gh-pages || git checkout gh-pages
           Copy-Item -Recurse -Force allure-report/* .
           git add .
           git commit -m "Add new Allure report"
