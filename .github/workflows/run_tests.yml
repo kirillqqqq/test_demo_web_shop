@@ -1,6 +1,5 @@
 name: Run autotests
 
-
 on:
   workflow_dispatch:
     inputs:
@@ -16,14 +15,27 @@ jobs:
   run-tests:
     runs-on: windows-latest
     name: Tests
+
     steps:
       - name: Copy source data
         uses: actions/checkout@v4
+
       - name: Set up Python env
         uses: actions/setup-python@v5
-        with: 
+        with:
           python-version: "3.11"
-      - name: install dependencies
-        run: pip install -r requirements.txt
-      - name: Run tests
-        run: pytest -v
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install allure-pytest
+
+      - name: Run tests with Allure
+        run: pytest -v --alluredir=allure-results
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results
