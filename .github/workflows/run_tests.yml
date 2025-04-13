@@ -25,6 +25,10 @@ jobs:
     steps:
       - name: Checkout source branch
         uses: actions/checkout@v4
+      - name: Identity
+        run: |
+          git config --global user.email "kirill.afanasiev.r@gmail.com"
+          git config --global user.name "Kirill Afanasev"
 
       - name: Set up JDK
         uses: actions/setup-java@v3
