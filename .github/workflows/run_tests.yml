@@ -60,7 +60,7 @@ jobs:
         run: pytest --alluredir allure-results -n 2 --reruns 1 --reruns-delay 5
 
       - name: Generate allure report
-        run: ~\scoop\apps\allure\2.33.0\bin\allure.bat allure generate -c allure-results -o _site
+        run: ~\scoop\apps\allure\2.33.0\bin\allure.bat generate -c allure-results -o _site
         if: always()
         
       - name: Configure Git for GitHub
