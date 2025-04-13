@@ -32,9 +32,12 @@ jobs:
           java-version: '21.0.2'
           distribution: 'microsoft'
 
-      - name: Install allure
+      - name: Install Scoop and Allure
+        shell: powershell
         run: |
-          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+          iwr -useb get.scoop.sh | iex
+          $env:SCOOP = "$env:USERPROFILE\scoop"
+          $env:PATH += ";$env:SCOOP\shims"
           scoop install allure
 
       - name: Set up Python
