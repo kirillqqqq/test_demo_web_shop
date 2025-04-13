@@ -63,13 +63,19 @@ jobs:
         run: ~\scoop\apps\allure\2.33.0\bin\allure.bat generate allure-results
         if: always()
         
+      - name: Configure Git for GitHub
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
       - name: Push Allure report to gh-pages
         run: |
           git fetch
-          git checkout -b gh-pages || git checkout gh-pages
+          git checkout gh-pages || git checkout -b gh-pages origin/gh-pages
           Copy-Item -Recurse -Force allure-report/* .
           git add .
-          git commit -m "Add new Allure report"
+          git commit -m "Add new Allure report" || echo "No changes to commit"
           git pull --rebase origin gh-pages
           git push origin gh-pages
         if: always()
