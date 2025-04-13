@@ -16,7 +16,12 @@ on:
 env:
   OWNER: kirillqqqq
   REPO: test_demo_web_shop
-
+  
+permissions:
+  contents: write  
+  pages: write    
+  id-token: write
+  
 jobs:
   run-tests:
     runs-on: windows-latest
