@@ -10,7 +10,13 @@ on:
         default: all
         options:
           - all
+  repository_dispatch:
+    types: [run-tests]  # <-- это для запуска через API
 
+env:
+  OWNER: kirillqqqq
+  REPO: test_demo_web_shop 
+  
 jobs:
   run-tests:
     runs-on: windows-latest
