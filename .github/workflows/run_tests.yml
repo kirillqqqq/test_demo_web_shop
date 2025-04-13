@@ -42,7 +42,17 @@ jobs:
 
       - name: Run tests with Allure
         run: pytest -v --alluredir=allure-results
+      - name: Install allure
+        run: |
+          if (-not (Get-Command allure -ErrorAction SilentlyContinue)) {
+            iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+            scoop install allure
+          }
 
+      - name: Generate allure report
+        run: |
+          ~\scoop\apps\allure\2.20.1\bin\allure.bat generate allure-results --clean -o allure-report
+        if: always()
       - name: Generate allure report
         run: |
           allure generate allure-results --clean -o allure-report
