@@ -2,7 +2,11 @@ name: Trigger Tests
 
 on:
   workflow_dispatch: {}
-
+  
+permissions:
+  contents: write
+  actions: write
+  
 jobs:
   trigger:
     runs-on: ubuntu-latest
