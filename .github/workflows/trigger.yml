@@ -7,8 +7,9 @@ jobs:
   trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Main Workflow
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: run_tests.yml
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Dispatch repository event
+        run: |
+          curl -X POST https://api.github.com/repos/${{ github.repository }}/dispatches \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -d '{"event_type": "run-tests"}'
