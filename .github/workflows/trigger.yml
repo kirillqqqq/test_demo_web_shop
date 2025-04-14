@@ -1,0 +1,14 @@
+name: Trigger Tests
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Main Workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: run_tests.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
